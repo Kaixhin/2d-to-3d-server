@@ -3,6 +3,7 @@ import os
 import sys
 
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import numpy as np
 from PIL import Image
@@ -17,6 +18,7 @@ model = TSR.from_pretrained("stabilityai/TripoSR", config_name="config.yaml", we
 model.renderer.set_chunk_size(8192)
 
 app = FastAPI()
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 
 @app.post("/crop_resize_image/")
