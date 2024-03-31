@@ -6,6 +6,8 @@ Install dependencies using `pip install -r requirements.txt`. Pull the TripoSR g
 
 ## Running
 
-Run `uvicorn main:app --reload` to run the web app. The `--reload` arg enables live reloading (on file changes).
+Run `uvicorn main:app --host 0.0.0.0 --port 8000 --reload` to run the web app and make it accessible on the local network. The `--reload` arg enables live reloading (on file changes).
 
-To test the API using `curl` and a test image (`hamburger.png`), receiving an `.obj`: `curl -X POST -F "image=@hamburger.png" -o "hamburger.obj" http://localhost:8000/upload/`
+To test the API using `curl` and a test image (`hamburger.png`):
+- Center crop and resize image: `curl -X POST -F "image=@hamburger.jpg" -o "hamburger.png" http://<IP>:8000/crop_resize_image/`
+- Convert image to 3D .obj file: `curl -X POST -F "image=@hamburger.png" -o "hamburger.obj" http://<IP>:8000/convert_2d_to_3d/`
